@@ -1,0 +1,25 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  thymeleaf:
+    cache: false  #这个是关闭thymeleaf缓存
+    enabled: false #关闭thymeleaf模板　
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/jes?characterEncoding=utf-8
+    driverClassName: com.mysql.jdbc.Driver
+    username: bapp
+    password: bapp
+  jpa:
+    database: MySQL
+    show-sql: true
+server:
+  tomcat:
+    uri-encoding: UTF-8
+
