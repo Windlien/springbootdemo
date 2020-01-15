@@ -12,14 +12,24 @@ spring:
       charset: utf-8
       enabled: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/jes?characterEncoding=utf-8
-    driverClassName: com.mysql.jdbc.Driver
-    username: bapp
-    password: bapp
+    url: jdbc:sqlite::resource:db/demo.db
+    driverClassName: org.sqlite.JDBC
+    username:
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://127.0.0.1:3306/jesdev?characterEncoding=utf-8
+#    driverClassName: com.mysql.jdbc.Driver
+#    username: wind
+#    password: wind
   jpa:
-    database: MySQL
+##    database: mysql
+    database-platform: com.mindata.blockchain.core.sqlite.SQLiteDialect
     show-sql: true
+    generate-ddl: true
 server:
   tomcat:
-    uri-encoding: UTF-8
-
+    uri-encoding: utf-8
+  port: 8088
+  servlet:
+    context-path: /demo
+debug: true

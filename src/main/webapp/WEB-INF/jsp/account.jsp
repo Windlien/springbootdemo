@@ -17,10 +17,10 @@
     <c:if test="${!empty list}">
         <c:forEach items="${list}" var="u">
             <tr>
-                <td>${u.accountId}</td>
-                <td>${u.opTime}</td>
-                <td>${u.dsTime}</td>
-                <td>${u.bankCardType}</td>
+                <td>${u.ENT_NAME}</td>
+                <td>${u.ENT_CERTTYPE}</td>
+                <td>${u.ENT_CERTNUM}</td>
+                <td>${u.REG_ADD}</td>
             </tr>
         </c:forEach>
     </c:if>

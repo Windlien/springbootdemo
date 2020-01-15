@@ -3,11 +3,15 @@
 <html>
 <script  src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
 <script >
+	$().ready(
+			function () {
+				//缩小图片暂时没有更好办法
+				var newImage = new Image();
+				newImage.src = $("#img").attr("src");
+				$("#img").attr("width",newImage.width*0.1);
+			}
+	)
 	function addUser(){
-//		缩小图片暂时没有更好办法
-  		var newImage = new Image();
-		newImage.src = $("#img").attr("src");
-		$("#img").attr("width",newImage.width*0.2);
 		$("#addUser").css("color","red");
 		setTimeout("o()",1500);
 	}
@@ -37,12 +41,13 @@
 </script>
 <body>
 	<div>
-		<h1>WELCOME TO SpringBoot SpringMVC4.7 Hibernate4</h1>
+		<h1 style="color: bisque">WELCOME TO SpringBoot SpringMVC4.7 Hibernate4</h1>
 	</div>
 	<br/>
 
 	<ul style="width: 10%; cursor: pointer">
 		<li><a href="../../img/ad.jpg">src下的图片</a></li>
+		<li><a href="db/BSYS/gray01.jpg" target="_blank">预览<img src="${pageContext.request.contextPath}/img/1.jpg"  style="width:100px;height:100px" ></a></li>
 		<li id="addUser" onclick="addUser()">增加用户</li>
 		<li id="getAllUser" onclick="getAllUser()">查询用户</li>
 		<li id="getUserUI" onclick="getUserUI()">EasyUI查询用户</li>
