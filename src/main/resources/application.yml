@@ -1,3 +1,4 @@
+#yml形式的
 spring:
   mvc:
     view:
