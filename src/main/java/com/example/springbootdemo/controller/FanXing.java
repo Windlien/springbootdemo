@@ -1,12 +1,14 @@
 package com.example.springbootdemo.controller;
 
+import org.springframework.stereotype.Controller;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/18.
  */
-
+@Controller
 public class FanXing {
     public static <T> void display(T t){
        System.out.println(t.getClass());

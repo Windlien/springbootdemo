@@ -3,6 +3,7 @@ package com.example.springbootdemo.controller;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
  * @创建时间：2018/3/12
  * @描述：使用Jsoup获取网页内容
  */
+@Controller
 public class FindIt {
     public static void main(String[] args) throws IOException {
 //    获取编辑推荐页

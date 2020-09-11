@@ -56,7 +56,7 @@
 		<li id="find" onclick="find()"  >找出数据</li>
 	</ul>
 	<div>
-		<img id="img" src="${pageContext.request.contextPath}/img/1.jpg">
+		<img id="img" src="${pageContext.request.contextPath}/img/1.jpg" >
 	</div>
 </body>
 </html>

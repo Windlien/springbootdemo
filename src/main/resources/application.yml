@@ -7,11 +7,6 @@ spring:
   thymeleaf:
     cache: false  #这个是关闭thymeleaf缓存
     enabled: false #关闭thymeleaf模板　
-  http:
-    encoding:
-      force: true
-      charset: utf-8
-      enabled: true
   datasource:
     url: jdbc:sqlite::resource:db/demo.db
     driverClassName: org.sqlite.JDBC
@@ -33,4 +28,8 @@ server:
   port: 8088
   servlet:
     context-path: /demo
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 debug: true

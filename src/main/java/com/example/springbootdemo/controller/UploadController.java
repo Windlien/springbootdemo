@@ -22,6 +22,7 @@ public class UploadController {
     public String upload(){
         return "upload";
     }
+
     @RequestMapping("upload")
     public String upload(HttpServletRequest request,HttpServletResponse response) throws IOException {
 //      创建一个通用的多部分解析器
