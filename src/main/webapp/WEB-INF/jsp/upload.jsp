@@ -1,8 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<head>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/星星.js"></script>
+</head>
 <body>
 <%--星星跟随效果:星星.js和span--%>
 <span class="js-cursor-container"></span>
