@@ -1,6 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<head>
+    <title>Hello-Demo</title>
+</head>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.js"></script>
 
 <script>
@@ -13,42 +16,41 @@
         }
     )
 
-    function addUser() {
-        $("#addUser").css("color", "red");
-        setTimeout("o()", 1500);
-    }
+        function addUser() {
+            $("#addUser").css("color", "red");
+            setTimeout("o()", 1500);
+        }
 
-    function o() {
-        window.open("${pageContext.request.contextPath}/user/user")
-    }
+        function o() {
+            window.open("${pageContext.request.contextPath}/user/user")
+        }
 
-    function upload() {
-        window.open("${pageContext.request.contextPath}/file/file")
-    }
+        function upload() {
+            window.open("${pageContext.request.contextPath}/file/file")
+        }
 
-    function getAllUser() {
-        window.open("${pageContext.request.contextPath}/user/getAllUser")
-    }
+        function getAllUser() {
+            window.open("${pageContext.request.contextPath}/user/getAllUser")
+        }
 
-    function getUserUI() {
-        window.open("${pageContext.request.contextPath}/user/getUserUI")
-    }
+        function getUserUI() {
+            window.open("${pageContext.request.contextPath}/user/getUserUI")
+        }
 
-    function spider() {
-        $.ajax({
-            url: "${pageContext.request.contextPath}/spider",
-            success: function (data) {
-                alert('success');
-            }
-        })
-    }
+        function spider() {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/spider",
+                success: function (data) {
+                    alert('success');
+                }
+            })
+        }
 
-    function find() {
-        window.open("${pageContext.request.contextPath}/find");
-    }
-</script>
+        function find() {
+            window.open("${pageContext.request.contextPath}/find");
+        }
+    </script>
 <body>
-
 <%--点线交互动态--%>
 <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="${pageContext.request.contextPath}/js/canvas-nest.js"></script>
 

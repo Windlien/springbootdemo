@@ -3,10 +3,10 @@
 <html>
 <head>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/星星.js"></script>
 </head>
 <body>
 <%--星星跟随效果:星星.js和span--%>
+<script src="${pageContext.request.contextPath}/js/星星.js"></script>
 <span class="js-cursor-container"></span>
 <div>
     <h1>上传用户</h1>
