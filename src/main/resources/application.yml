@@ -6,14 +6,47 @@ spring:
       suffix: .jsp
   thymeleaf:
     cache: false  #这个是关闭thymeleaf缓存
-    enabled: false #关闭thymeleaf模板　
+    enabled: false #关闭thymeleaf模板
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:sqlite::resource:db/demo.db
     driverClassName: org.sqlite.JDBC
     username:
     password:
-    type: com.alibaba.druid.pool.DruidDataSource
-#    url: jdbc:mysql://127.0.0.1:3306/jesdev?characterEncoding=utf-8
+    druid:
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+      filter:
+        stat:
+          merge-sql: true
+          slowSqlMillis: 5000
+          log-slow-sql: true
+      # 合并多个DruidDataSource的监控数据
+      useGlobalDataSourceStat: true
+#     用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+      validationQuery: select 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: cf
+        login-password: cf
+  #    url: jdbc:mysql://127.0.0.1:3306/jesdev?characterEncoding=utf-8
 #    driverClassName: com.mysql.jdbc.Driver
 #    username: wind
 #    password: wind
@@ -27,7 +60,7 @@ server:
     uri-encoding: utf-8
   port: 8088
   servlet:
-    context-path: /demo
+    context-path: /
     encoding:
       force: true
       charset: utf-8

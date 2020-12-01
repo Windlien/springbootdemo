@@ -49,6 +49,9 @@
         function find() {
             window.open("${pageContext.request.contextPath}/find");
         }
+        function stat() {
+            window.open("${pageContext.request.contextPath}/druid");
+        }
     </script>
 <body>
 <%--点线交互动态--%>
@@ -69,6 +72,7 @@
     <li id="upload" onclick="upload()">上传文件</li>
     <li id="spider" onclick="spider()">爬虫-银监局</li>
     <li id="find" onclick="find()">找出数据</li>
+    <li id="stat" onclick="stat()">Druid监控</li>
 </ul>
 <div>
     <img id="img" src="${pageContext.request.contextPath}/img/1.jpg">
