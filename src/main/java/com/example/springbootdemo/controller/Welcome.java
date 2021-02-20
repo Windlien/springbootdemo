@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -16,14 +17,22 @@ import java.util.List;
 public class Welcome {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
     @RequestMapping("/")
-     public String welcome(){
-         return "welcome";
-     }
+    public String welcome() {
+        return "welcome";
+    }
+
     @RequestMapping("/find")
-    public String find(HttpServletRequest request){
+    public String find(HttpServletRequest request) {
         List list = jdbcTemplate.queryForList("select * from  pbc2_en_base_inf");
-        request.setAttribute("list",list);
-        return  "account";
-     }
+        request.setAttribute("list", list);
+        return "account";
+    }
+
+    @RequestMapping("/provider/welcomes")
+    @ResponseBody
+    public String welcomes() {
+        return "welcome-GETmapping";
+    }
 }
