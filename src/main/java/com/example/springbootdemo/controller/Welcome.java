@@ -25,7 +25,7 @@ public class Welcome {
 
     @RequestMapping("/find")
     public String find(HttpServletRequest request) {
-        List list = jdbcTemplate.queryForList("select * from  pbc2_en_base_inf");
+        List list = jdbcTemplate.queryForList("select * from  DE_EN_BASE_INF");
         request.setAttribute("list", list);
         return "account";
     }

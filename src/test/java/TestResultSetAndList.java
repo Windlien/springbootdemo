@@ -36,7 +36,7 @@ public class TestResultSetAndList {
     public static long test(List testList) {
         final long begin = System.currentTimeMillis();
         final Map<String, List<ResultSet>> segmentDataMap = new HashMap<String, List<ResultSet>>();
-        jdbcTemplate.query("SELECT * FROM pbc2_en_base_inf", new ResultSetExtractor<Object>() {
+        jdbcTemplate.query("SELECT * FROM DE_EN_BASE_INF", new ResultSetExtractor<Object>() {
             @Override
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
                 int i = 0;
@@ -67,7 +67,7 @@ public class TestResultSetAndList {
     public static long test2(List testList) {
         long begin = System.currentTimeMillis();
         Map<String, List<Map<String, Object>>> segmentDataMap = new HashMap<String, List<Map<String, Object>>>();
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM pbc2_en_base_inf");
+        List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT * FROM DE_EN_BASE_INF");
         int i = 0;
         for (Map<String, Object> map : list) {
             String pks;
