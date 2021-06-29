@@ -58,7 +58,7 @@ spring:
 server:
   tomcat:
     uri-encoding: utf-8
-  port: 8088
+  port: 7000
   servlet:
     context-path: /
     encoding:
