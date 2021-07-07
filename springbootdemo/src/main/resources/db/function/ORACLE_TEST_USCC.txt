@@ -1,0 +1,122 @@
+--统一社会信用代码校验函数
+CREATE OR REPLACE  FUNCTION TEST_USCC(code IN VARCHAR2)
+    RETURN VARCHAR2
+    IS
+    TYPE v_ar IS VARRAY (18) of number;
+    w       v_ar       := v_ar(1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28);
+    codesum NUMBER(10) := 0;
+    cm number;
+    -- CI字符值
+    FUNCTION CI_TONUM(code VARCHAR2) RETURN VARCHAR2 IS
+        ci      NUMBER(2);
+    BEGIN
+        CASE code
+            WHEN 'A' THEN ci := 10;
+            WHEN 'B' THEN ci := 11;
+            WHEN 'C' THEN ci := 12;
+            WHEN 'D' THEN ci := 13;
+            WHEN 'E' THEN ci := 14;
+            WHEN 'F' THEN ci := 15;
+            WHEN 'G' THEN ci := 16;
+            WHEN 'H' THEN ci := 17;
+            WHEN 'J' THEN ci := 18;
+            WHEN 'K' THEN ci := 19;
+            WHEN 'L' THEN ci := 20;
+            WHEN 'M' THEN ci := 21;
+            WHEN 'N' THEN ci := 22;
+            WHEN 'P' THEN ci := 23;
+            WHEN 'Q' THEN ci := 24;
+            WHEN 'R' THEN ci := 25;
+            WHEN 'T' THEN ci := 26;
+            WHEN 'U' THEN ci := 27;
+            WHEN 'W' THEN ci := 28;
+            WHEN 'X' THEN ci := 29;
+            WHEN 'Y' THEN ci := 30;
+            ELSE ci := to_number(code);
+            END CASE;
+        RETURN ci;
+    END CI_TONUM;
+BEGIN
+    IF (LENGTH(code) != 18) THEN
+        RETURN 'N';
+    END IF;
+    IF REGEXP_LIKE(code, '^[0-9ANY][1239]\d{6}[0-9ABCDEFGHJKLMNPQRTUWXY]{10}$') THEN
+        IF (JES_VERIFY_CERTCODE(SUBSTR(code, 9, 9)) = 'N') THEN
+            RETURN 'N';
+        END IF;
+        FOR i IN 1 .. w.COUNT
+            LOOP
+                -- 字符的字符数值分别乘于该位的加权因子，然后求和
+                codesum := codesum + CI_TONUM(SUBSTR(code, i, 1)) * w(i);
+            END LOOP;
+        cm := 31 - MOD(codesum, 31);
+        IF cm = 31 THEN
+            cm:=0;
+        END IF;
+        IF CI_TONUM(SUBSTR(code, 18, 1)) = cm THEN
+            RETURN 'Y';
+        ELSE
+            RETURN 'N';
+        END IF;
+    ELSE
+        RETURN 'N';
+    END IF;
+END TEST_USCC;
+
+CREATE or replace FUNCTION JES_VERIFY_CARDTYPE(id_num IN VARCHAR2, id_type IN VARCHAR2, id_user IN VARCHAR2, ss_id IN VARCHAR2)
+    RETURN VARCHAR2
+AS
+    regexpCount number;
+BEGIN
+    --   1-自然人  2-组织机构
+    IF id_user = '1' THEN
+        IF id_type = '10' THEN
+            -- 18位 公民身份证号码
+            RETURN JES_VERIFY_IDCARD(id_num, ss_id);
+        ELSIF id_type = '2' THEN
+            --护照的证件号码
+            SELECT count(1) INTO regexpCount FROM dual WHERE regexp_like(id_num, '(^([a-zA-z]|[0-9]){5,17}$)');
+            IF regexpCount != 0 THEN
+                RETURN 'Y';
+            ELSE
+                RETURN 'N';
+            END IF;
+        ELSIF id_type = '5' THEN
+            --港澳居民往来大陆通行证
+            SELECT count(1) INTO regexpCount FROM dual WHERE regexp_like(id_num, '(^([A-Z]\d{6,10}(\(\w{1}\))?)$)');
+            IF regexpCount != 0 THEN
+                RETURN 'Y';
+            ELSE
+                RETURN 'N';
+            END IF;
+        ELSIF id_type = '6' THEN
+            --台湾居民往来大陆通行证
+            SELECT count(1) INTO regexpCount FROM dual WHERE regexp_like(id_num, '(^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$)');
+            IF regexpCount != 0 THEN
+                RETURN 'Y';
+            ELSE
+                RETURN 'N';
+            END IF;
+            -- 其他类型忽略不计
+        ELSE
+            RETURN 'Y';
+        END IF;
+    ELSE
+        IF id_type = '10' THEN
+            -- 中征码  16位
+            RETURN JES_VERIFY_MEDIANCODE(id_num);
+        ELSIF id_type = '20' THEN
+            -- 统一社会信用代码
+            IF TEST_USCC(id_num)='Y' THEN
+                RETURN 'Y';
+            ELSE
+                RETURN 'N';
+            END IF;
+            -- 组织机构代码
+        ELSIF id_type = '30' THEN
+            RETURN JES_VERIFY_CERTCODE(id_num);
+        else
+            RETURN 'Y';
+        END IF;
+    END IF;
+END JES_VERIFY_CARDTYPE;
