@@ -1,0 +1,9 @@
+server:
+  port: 10086
+spring:
+  application:
+    name: eureka  #将来作为微服务名称注入
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:${server.port}/eureka
